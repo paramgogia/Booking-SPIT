@@ -96,7 +96,7 @@
       <form method="POST" action>
         {% csrf_token %}
         <div>
-          <label for="first_name">StartUp Name:</label>
+          <label for="first_name">Committee Name:</label>
           <input type="text" id="first_name" name="first_name" required />
         </div>
         <div>
@@ -105,13 +105,18 @@
         </div>
         <div>
           <label for="password">Password:</label>
-          <input type="text" id="password" name="password" required />
+          <input type="password" id="password" name="password" required />
+        </div>
+        <div>
+          <label for="confirmpassword">Confirm Password:</label>
+          <input type="password" id="confirmpassword" name="confirmpassword" required />
         </div>
         <div>
           <label for="free_slots">Free Hours:</label>
           <input type="number" id="free" name="free" required />
         </div>
         <button type="submit" id="form">Sign Up</button>
+        {{msg}}
       </form>
     </div>
     <script src="{% static 'js/adduser.js'%}"></script>

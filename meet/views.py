@@ -62,7 +62,7 @@ def index(request):
     return render(request, 'index.html', {'timeslots':timeslots, 'num':num, 'r': r, 'date': date, 'times': times, 'status':status})
 
 def delete_slot(request):
-    times = ["09.00 am", "09.30 am","10.00 am", "10.30 am", "11.00 am", "11.30 am", "12.00 pm", "12.30 pm", "01.00 pm", "01.30 pm", "02.00 pm", "02.30 pm","03.00 pm", "03.30 pm","04.00 pm", "04.30 pm","05.00 pm", "05.30 pm","06.00 pm", "06.30 pm","07.00 pm", "07.30 pm","08.00 pm", "08.30 pm"]
+    times = ["12.00 am", "12.30 am", "01.00 am", "01.30 am", "02.00 am", "02.30 am", "03.00 am", "03.30 am", "04.00 am", "04.30 am", "05.00 am", "05.30 am", "06.00 am", "06.30 am", "07.00 am", "07.30 am", "08.00 am", "08.30 am", "09.00 am", "09.30 am","10.00 am", "10.30 am", "11.00 am", "11.30 am", "12.00 pm", "12.30 pm", "01.00 pm", "01.30 pm", "02.00 pm", "02.30 pm","03.00 pm", "03.30 pm","04.00 pm", "04.30 pm","05.00 pm", "05.30 pm","06.00 pm", "06.30 pm","07.00 pm", "07.30 pm", "08.00 pm", "08.30 pm", "09.00 pm", "09.30 pm", "10.00 pm", "10.30 pm", "11.00 pm", "11.30 pm"]
     date = datetime.now().strftime("%Y-%m-%d")
     if request.method=="POST":
         if 'form1' in request.POST:
@@ -148,7 +148,7 @@ def edit_user(request):
             u.last_name = last_name
             u.email = email
             u.total = free
-            us.password = password
+            us.set_password(password)
             u.save()
             us.first_name = first_name
             us.last_name = last_name
@@ -233,9 +233,12 @@ def adduser(request):
     if request.method == "POST":
         email = request.POST.get('email')
         password = request.POST.get('password')
+        confirmpassword = request.POST.get('confirmpassword')
         first_name = request.POST.get('first_name')
         free_hours = request.POST.get('free')
-        user = User.objects.create(email = email, password = password, first_name = first_name, username = first_name, last_name = "")
+        if password != confirmpassword:
+            return render(request, "adduser.html", {'msg': "Passwords do not match!"})
+        user = User.objects.create_user(email = email, password = password, first_name = first_name, username = first_name, last_name = "")
         obj = FreeSlot.objects.create(email = email, total=free_hours, free_slots = free_hours, first_name=first_name)
         user.save()
         obj.save()
