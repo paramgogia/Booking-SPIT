@@ -2,7 +2,7 @@ import json
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from .models import aTimeSlot, FreeSlot
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from datetime import datetime
 from django.urls import reverse
@@ -12,7 +12,7 @@ import xlsxwriter
 # Create your views here.
 def index(request):
     #list of times from 9am to 9pm in intervals of 30 mins
-    times = ["09.00 am", "09.30 am","10.00 am", "10.30 am", "11.00 am", "11.30 am", "12.00 pm", "12.30 pm", "01.00 pm", "01.30 pm", "02.00 pm", "02.30 pm","03.00 pm", "03.30 pm","04.00 pm", "04.30 pm","05.00 pm", "05.30 pm","06.00 pm", "06.30 pm","07.00 pm", "07.30 pm","08.00 pm", "08.30 pm"]
+    times = ["12.00 am", "12.30 am", "01.00 am", "01.30 am", "02.00 am", "02.30 am", "03.00 am", "03.30 am", "04.00 am", "04.30 am", "05.00 am", "05.30 am", "06.00 am", "06.30 am", "07.00 am", "07.30 am", "08.00 am", "08.30 am", "09.00 am", "09.30 am","10.00 am", "10.30 am", "11.00 am", "11.30 am", "12.00 pm", "12.30 pm", "01.00 pm", "01.30 pm", "02.00 pm", "02.30 pm","03.00 pm", "03.30 pm","04.00 pm", "04.30 pm","05.00 pm", "05.30 pm","06.00 pm", "06.30 pm","07.00 pm", "07.30 pm", "08.00 pm", "08.30 pm", "09.00 pm", "09.30 pm", "10.00 pm", "10.30 pm", "11.00 pm", "11.30 pm"]
     date = datetime.now().strftime("%Y-%m-%d")
     status = 0
     user = request.user
@@ -86,7 +86,7 @@ def delete_slot(request):
                 a = aTimeSlot.objects.filter(slot=slot, room = room, date = date)
                 a.delete()
                 u.free_slots += 0.5
-                u.charges = u.free_slots * -300 if u.free_slots < 0 else 0
+
     timeslots = aTimeSlot.objects.filter(date = date)
     num = range(24)
     r = range(3)
@@ -98,7 +98,6 @@ def profile(request):
     objs = FreeSlot.objects.all()
     for o in objs:
         o.free_slots = aTimeSlot.objects.filter(email = o.email, month = mon, year = y).count()*0.5
-        o.charges = 0 if o.free_slots < o.total else (o.free_slots - o.total) * 300
         o.save()
     if request.method == "POST":
         if 'form1' in request.POST:
@@ -113,7 +112,6 @@ def profile(request):
             u.save()
     user = request.user
     free_hours = FreeSlot.objects.get(email = user.email).free_slots
-    charges = FreeSlot.objects.get(email = user.email).charges
     total = FreeSlot.objects.get(email = user.email).total
     objs = FreeSlot.objects.all()
     date = datetime.now().strftime("%Y-%m-%d")
@@ -132,7 +130,7 @@ def profile(request):
     timeslotspm = sorted(timeslots_pm, key=lambda obj:obj.date)
     if not user.is_authenticated:
         return redirect("login")
-    return render(request, 'profile.html', {'timeslots':timeslots, 'timeslotspm':timeslotspm, 'free_hours' : free_hours, 'charges': charges , "objs":objs, 'total':total})
+    return render(request, 'profile.html', {'timeslots':timeslots, 'timeslotspm':timeslotspm, 'free_hours' : free_hours, "objs":objs, 'total':total})
 
 def edit_user(request):
     email = request.GET.get('email')
@@ -186,19 +184,19 @@ def download_table_as_excel(request):
     objs = FreeSlot.objects.all()
 
     response = HttpResponse(content_type='application/vnd.ms-excel')
-    response['Content-Disposition'] = 'attachment; filename="Charges.xlsx"'
+    response['Content-Disposition'] = 'attachment; filename="Statistics.xlsx"'
 
     workbook = xlsxwriter.Workbook(response, {'remove_timezone': True})
     worksheet = workbook.add_worksheet()
 
     # Write the table headers
-    headers = ['First Name', 'Last Name', 'Email', 'Hours Used', 'Total Free Hours', 'Charges']
+    headers = ['First Name', 'Last Name', 'Email', 'Hours Used', 'Total Free Hours']
     for col, header in enumerate(headers):
         worksheet.write(0, col, header)
 
     # Write the table data
     for row, obj in enumerate(objs, start=1):
-        data = [obj.first_name, obj.last_name, obj.email, obj.free_slots, obj.total, str(obj.charges)+'0']
+        data = [obj.first_name, obj.last_name, obj.email, obj.free_slots, obj.total]
         for col, value in enumerate(data):
             worksheet.write(row, col, value)
 
@@ -211,17 +209,15 @@ def loginuser(request):
     msg=""
     if request.method == "POST":
         msg="Wrong Credentials!"
-        email = request.POST.get('email')
+        username = request.POST.get('username')
         password = request.POST.get('password')
+        print(username, password)
         try:
-            user = User.objects.get(email = email)  
+            user = authenticate(request, username=username, password=password)
+            print(user)
             if user is not None:
-                if user.password == password:
-                    print("Successful")
-                    login(request, user)
-                    return redirect("index")
-                else:
-                    return render(request, 'login.html', {'msg':msg})
+                login(request, user)
+                return redirect("index")
         except User.DoesNotExist:
             return render(request, 'login.html', {'msg':msg})
         else:
@@ -240,7 +236,7 @@ def adduser(request):
         first_name = request.POST.get('first_name')
         free_hours = request.POST.get('free')
         user = User.objects.create(email = email, password = password, first_name = first_name, username = first_name, last_name = "")
-        obj = FreeSlot.objects.create(email = email, total=free_hours, free_slots = free_hours, charges = 0, first_name=first_name)
+        obj = FreeSlot.objects.create(email = email, total=free_hours, free_slots = free_hours, first_name=first_name)
         user.save()
         obj.save()
         return redirect("adduser")

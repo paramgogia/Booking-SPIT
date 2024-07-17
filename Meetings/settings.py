@@ -27,15 +27,9 @@ SECRET_KEY = 'django-insecure-&8&r2__8926u0(cf!m&a#l-*35k5n0a=m*ekk&6ir!$@5o77#3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['172.16.10.117',
-                 'booking.sptbi.com',
-                 'https://booking.sptbi.com',
-                 'https://www.booking.sptbi.com/',]
+ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['booking.sptbi.com',
-                        'https://booking.sptbi.com',
-                        'https://www.booking.sptbi.com/',]
-
+CSRF_ALLOW_ALL_ORIGINS = True
 # Application definition
 
 INSTALLED_APPS = [

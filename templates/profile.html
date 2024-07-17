@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Profile | SPTBI</title>
+    <title>Profile | SP-IT</title>
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/favicon-16x16.png' %}">
@@ -33,7 +33,7 @@
         <img src="{% static 'assets/logo.png'%}" alt="Logo" />
         </a>
       </div>
-      <h2 class="text-center">Booking</h2>
+      <h2 class="text-center">Room Booking Portal</h2>
       <div class="dropdown">
         <a
           class="btn btn-light log dropdown-toggle"
@@ -93,7 +93,6 @@
         <th style="width: 20%;"><i class="fas fa-envelope"></i> &nbsp Email</th>
         <th style="text-align:right; width:12.5%;"><i class="fas fa-clock"></i> Hours Used </th>
         <th style="text-align:right; width:15%;"><i class="fas fa-clock"></i> Total Free Hours</th>
-        <th style="width: 10%;">Charges </th>
         <th style="width: 12.5%;">Status </th>
         <th style="width: 5%;">Edit</th>
       </thead>
@@ -104,7 +103,6 @@
         <td >{{ i.email }}</td>
         <td style="text-align:right;">{{ i.free_slots }} Hours &nbsp &nbsp</td>
         <td style="text-align:right;">{{i.total}} Hours &nbsp &nbsp</td>
-        <td>Rs.{{i.charges}}0</td>
         <td>
           <form action="" method="POST">
           {% csrf_token %}
@@ -230,7 +228,7 @@
                     {{i.slot}} 
                   </td>
                   <td>
-                    Meeting Room 1 - 1st Floor
+                    Auditorium 008
                   </td>
                   <td>
                     {{i.reason}}
@@ -245,7 +243,7 @@
                     {{i.slot}} 
                   </td>
                   <td>
-                    Meeting Room 1 - 1st Floor
+                    Board Room - Principal's Office
                   </td>
                   <td>
                     {{i.reason}}
@@ -260,7 +258,7 @@
                     {{i.slot}} 
                   </td>
                   <td>
-                    Meeting Room 1 - 1st Floor
+                    Conference Hall 105
                   </td>
                   <td>
                     {{i.reason}}
@@ -289,7 +287,7 @@
                     {{i.slot}} 
                   </td>
                   <td>
-                    Meeting Room 1 - 1st Floor
+                    Auditorium 008
                   </td>
                   <td>
                     {{i.reason}}
@@ -304,7 +302,7 @@
                     {{i.slot}} 
                   </td>
                   <td>
-                    Meeting Room 1 - 1st Floor
+                    Board Room - Principal's Office
                   </td>
                   <td>
                     {{i.reason}}
@@ -319,7 +317,7 @@
                     {{i.slot}} 
                   </td>
                   <td>
-                    Meeting Room 1 - 1st Floor
+                    Conference Hall 105
                   </td>
                   <td>
                     {{i.reason}}

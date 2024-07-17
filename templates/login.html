@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Login | SPTBI</title>
+    <title>Login | SP-IT</title>
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/favicon-16x16.png' %}">
@@ -20,13 +20,13 @@
         <img src="{% static 'assets/logo.png'%}" alt="Logo" />
         </a>
       </div>
-  <h2 class="text-center">Booking</h2>
+  <h2 class="text-center">Room Booking Portal</h2>
 </div>
     <div class="login-page">
   <div class="form">
     <form class="login-form" method="POST" action="">
       {% csrf_token %}
-      <input type="email" placeholder="Email" name="email"/>
+      <input type="username" placeholder="Username" name="username"/>
       <input type="password" placeholder="Password" name="password"/>
       <button type="submit">login</button>
       <div class="msg"> {{msg}} </div>
