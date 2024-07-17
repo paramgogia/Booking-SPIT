@@ -1,0 +1,305 @@
+@import url("https://fonts.googleapis.com/css2?family=Anuphan:wght@500&display=swap");
+body {
+  font-family: Anuphan;
+  margin: 0 !important;
+  padding: 0;
+}
+
+.h {
+  display: flex;
+  justify-content: center;
+  color: white;
+  background-color: #336eda;
+  align-items: center;
+  font-family: Anuphan;
+  text-align: center;
+  padding: 15px;
+  height:80px;
+}
+
+#header {
+  font-family: Anuphan;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  position: relative;
+}
+
+#header button {
+  border: none;
+  color: black;
+  font-size: 30px;
+  padding: 0 10px;
+}
+
+#prevBtn {
+  margin-left: 20px;
+}
+
+#nextBtn {
+  margin-right: 20px;
+}
+
+#header button:hover {
+  background-color: #e0e0e0;
+}
+
+#header h3 {
+  margin: 10px;
+}
+
+.user-profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.left-section {
+  margin: 0 3%;
+  width: 30%;
+  overflow: hidden;
+  align-self: flex-start;
+}
+
+.profile {
+  display: flex;
+  justify-content: left;
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.profile .fa{
+  display: flex;
+  justify-content: center;
+}
+
+
+.user-name {
+  font-family: Anuphan;
+  margin: 0;
+  word-wrap: break-word;
+}
+
+.email-section {
+  display: flex;
+  justify-content: left;
+  font-size: 30px;
+  margin-right: 10px;
+}
+
+.email-section .fa-envelope {
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.email {
+  font-family: Anuphan;
+  font-size: 24px;
+  margin: 0;
+  word-wrap: break-word;
+}
+
+
+.slots-info {
+  display: flex;
+  justify-content: left;
+  font-size: 30px;
+  margin-right: 10px; 
+}
+
+.slots-info .fa-clock {
+  margin-left: 10px;
+}
+
+.slots-info .fa-rupee-sign {
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+
+.free-slots {
+  font-family: Anuphan;
+  font-size: 24px;
+  margin: 0;
+  word-wrap: break-word;
+}
+
+.change-password {
+  display: flex;
+  justify-content: space-between;
+  font-size: 30px;
+  padding: 5px 10px;
+  margin-right: 30%;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+
+.change-password .fa-lock {
+  margin-top: 5px;
+}
+
+.password {
+  font-family: Anuphan;
+  font-size: 24px;
+  margin: 0;
+  word-wrap: break-word;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+
+.right-section {
+  flex-grow: 1;
+  align-self: flex-start;
+}
+
+.booking-log {
+  font-family: Anuphan;
+  margin-left: auto;
+}
+
+.booking-log h2 {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.log-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.log-list li {
+  margin-bottom: 20px;
+}
+
+.log-list h3 {
+  margin-bottom: 10px;
+}
+
+.date {
+  font-weight: bold;
+}
+
+.logs {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  margin-left: 20px;
+}
+
+.logs li {
+  margin-bottom: 5px;
+}
+
+.list .fas {
+  margin-left: 10px;
+}
+
+.admin {
+  font-family: Anuphan;
+  font-size:20px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #d5e1ed;
+  }
+
+.admin thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #336eda;
+    color: white;
+}
+
+.admin tr:nth-child(even) {
+    background: #ffffff;
+}
+
+.admin td {
+    text-align: left;
+    margin: auto; 
+    padding: 0.5rem 1rem;
+  }
+
+.admin th{
+    font-weight: bold;
+    padding: 10px 10px;
+    text-align: left;
+  }
+
+  .edit-btn {
+    padding: 5px 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+  }
+
+.btn-wrapper{
+  display: flex;
+  justify-content:flex-start;
+  margin: 20px 0;
+}
+
+.download-btn {
+  font-family: Anuphan;
+  text-align: center;
+  margin: auto ;
+  padding: 5px 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.logo{
+  height: 100%;
+}
+
+.logo img {
+  max-height : 100%;
+}
+
+.user-p{
+  width: 30%;
+  align-self: flex-start;
+  margin-top:20px;
+  margin-left:1rem; 
+}
+
+.user-p td{
+  padding: 1rem 0;
+}
+
+.date-list{
+  width: 94%;
+  margin-left: 3%;
+}
+
+.date-list td{
+  padding: 0.25rem 1rem;
+}
+
+.date-list tr{
+  background-color: #d5e1ed;
+}
+
+.date-list th{
+  padding: 0.25rem 1rem;
+  background: #336eda;
+    color: white;
+}
+
+.date-list tr:nth-child(even) {
+    background: #ffffff;
+}

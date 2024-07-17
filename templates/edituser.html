@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit User | SPTBI</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'assets/site.webmanifest' %}">
+    <link rel="stylesheet" href="{% static 'css/edituser.css' %}" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha384-...your-integrity-hash...="
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="h d-flex justify-content-between align-items-center">
+      <div class="logo">
+        <a href="{% url 'index' %}">
+        <img src="{% static 'assets/logo.png'%}" alt="Logo" />
+        </a>
+      </div>
+      <h2 class="text-center">Booking</h2>
+      <div class="dropdown">
+        <a
+          class="btn btn-light log dropdown-toggle"
+          href="#"
+          role="button"
+          id="profileDropdown"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="fas fa-user"></i>
+          &nbsp {{user.first_name}} {{user.last_name}}
+        </a>
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="profileDropdown"
+        >
+          {% if user.is_authenticated %}
+          <li>
+            <div class="list d-flex justify-content-between align-items-center">
+              <i class="fas fa-user"></i
+              ><a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+            </div>
+          </li>
+          <li><hr class="dropdown-divider" /></li>
+          {% if user.is_staff %}
+          <li>
+            <div class="list d-flex justify-content-between align-items-center">
+              <i class="fas fa-calendar"></i>
+              <a class="dropdown-item" href="{% url 'index' %}">Schedule</a>
+            </div>
+          </li>
+          <li><hr class="dropdown-divider" /></li>
+          <li>
+            <div class="list d-flex justify-content-between align-items-center">
+              <i class="fas fa-plus"></i>
+              <a class="dropdown-item" href="{% url 'adduser' %}">Add User</a>
+            </div>
+          </li>
+          <li><hr class="dropdown-divider" /></li>
+          <li>
+            <div class="list d-flex justify-content-between align-items-center">
+              <i class="fas fa-times"></i>
+              <a class="dropdown-item" href="{% url 'delete' %}">Delete Slot</a>
+            </div>
+          </li>
+          <li><hr class="dropdown-divider" /></li>
+          {% endif %}
+          <li>
+            <div class="list d-flex justify-content-between align-items-center">
+              <i class="fas fa-sign-out-alt"></i
+              ><a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+            </div>
+          </li>
+          {% else %}
+          <li>
+            <div class="list d-flex justify-content-between align-items-center">
+              <i class="fas fa-sign-in-alt"></i
+              ><a class="dropdown-item" href="{% url 'login' %}">Login</a>
+            </div>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+    <div class="add">
+      <h2>Edit</h2>
+      <form method="POST" action="" id="someform">
+        {% csrf_token %}
+        <div>
+          <label for="first_name">StartUp Name:</label>
+          <input type="text" id="first_name" name="first_name" value="{{us.first_name}}" required />
+        </div>
+        <div>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" value="{{us.email}}" required />
+        </div>
+        <div>
+          <label for="password">Password:</label>
+          <input type="text" id="password" name="password" value="{{us.password}}" required />
+        </div>
+        <div>
+          <label for="free_slots">Free Hours:</label>
+          <input type="number" id="free" name="free" value="{{x}}" required />
+        </div>
+        <button type="submit" id="form1" name="form1">Save</button>
+        {% if user.email == us.email %}
+        {% else %}
+        <button type="button" id="form2" name="form2">Delete</button>
+        {% endif %}
+      </form>
+    </div>
+    <script src="{% static 'js/edituser.js'%}"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+  document.getElementById("form2").addEventListener("click", function (event) {
+    var confirmDelete = confirm("Are you sure you want to delete?");
+    if (confirmDelete) {
+      document.getElementById("deleteForm").submit(); // Submit the form if confirmed
+    }
+  });
+</script>
+  </body>
+</html>

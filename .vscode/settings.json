@@ -1,0 +1,11 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "Meetings",
+      "database": "${workspaceFolder:Meetings}/db.sqlite3"
+    }
+  ],
+  "python.analysis.extraPaths": ["./meet"]
+}

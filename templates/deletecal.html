@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Delete Slot | SPTBI</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'assets/site.webmanifest' %}">
+    <link rel="stylesheet" href="{% static 'css/deletecal.css' %}" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/bootstrap-icons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-...your-integrity-hash...=" crossorigin="anonymous">
+
+  </head>
+  <body>
+    <div class="h d-flex justify-content-between align-items-center">
+      <div class="logo">
+        <a href="{% url 'index' %}">
+        <img src="{% static 'assets/logo.png'%}" alt="Logo" />
+        </a>
+      </div>
+  <h2 class="text-center">Booking</h2>
+  <div class="dropdown">
+    <a class="btn btn-light log dropdown-toggle" href="#" role="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="fas fa-user"></i>
+      &nbsp
+      {{user.first_name}} {{user.last_name}}
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end " aria-labelledby="profileDropdown">
+      {% if user.is_authenticated %}
+      <li><div class="list d-flex justify-content-between align-items-center"><i class="fas fa-user"></i><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></div></li>
+      <li><hr class="dropdown-divider"></li>
+      {% if user.is_staff %}
+          <li>
+            <div class="list d-flex justify-content-between align-items-center">
+              <i class="fas fa-plus"></i>
+              <a class="dropdown-item" href="{% url 'adduser' %}">Add User</a>
+            </div>
+          </li>
+          <li><hr class="dropdown-divider" /></li>
+          <li>
+            <div class="list d-flex justify-content-between align-items-center">
+              <i class="fas fa-calendar"></i>
+              <a class="dropdown-item" href="{% url 'index' %}">Schedule</a>
+            </div>
+          </li>
+          <li><hr class="dropdown-divider" /></li>
+          {% endif %}
+      <li><div class="list d-flex justify-content-between align-items-center"><i class="fas fa-sign-out-alt"></i><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></div></li>
+      {% else %}
+      <li><div class="list d-flex justify-content-between align-items-center"><i class="fas fa-sign-in-alt"></i><a class="dropdown-item" href="{% url 'login' %}">Login</a></div></li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+
+    <div id="header">
+      <form action="{% url 'delete' %}" method="POST" id="form1">
+        {% csrf_token %}
+        <button type="submit" id="prevBtn" name="form1">&lt;</button>
+      </form>
+      <h3 id="a">{{date}}</h3>
+      <form action="{% url 'delete' %}" method="POST" id="form2">
+        {% csrf_token %}
+        <button type="submit" id="nextBtn" name="form1">&gt;</button>
+      </form>
+      <div style="position: absolute; top: 10px; right: 10px"></div>
+    </div>
+    <table id="calendar" class="table table-bordered">
+      <thead>
+        <tr class="text-center">
+          <th class="slot">Time Slot</th>
+          <th>Meeting Room - 1st Floor</th>
+          <th>Meeting Room 1 - 2nd Floor</th>
+          <th>Meeting Room 2 - 2nd Floor</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in times %}
+        <tr>
+          <td id="time-{{ i }}" class="slot">{{ i }}</td>
+          {% for j in r %}
+          <td id="cell-{{ i }}-{{ j }}" class="table-cells non-slot">
+            {% for k in timeslots %} 
+              {% if k.room == j and k.slot == i %} 
+                {% if user.is_staff %}
+                  Booked by {{ k.name }} <br> {{k.reason}}
+                {% elif k.email == user.email %}
+                  Booked by You
+                {% else %}
+                  Booked
+                {% endif %}
+              {% endif %} 
+            {% endfor %}
+          </td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <form action="" method="POST" id="bookingForm">
+      {% csrf_token %}
+      <input type="hidden" name="name" id="name" value="{{user.first_name}} {{user.last_name}}" />
+      <button id="bookBtn" class="center" name="form2">Delete</button>
+    </form>
+    <script src="{% static 'js/deletecal.js'%}"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

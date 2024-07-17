@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Anuphan:wght@500&display=swap');
+body {
+  font-family: Anuphan;
+  margin: 0 !important;
+  padding: 0;
+}
+
+.h {
+  display: flex;
+  justify-content: center;
+  color: white;
+  background-color: #336eda;
+  align-items: center;
+  font-family: Anuphan;
+  text-align: center;
+  padding: 15px;
+  height:80px;
+}
+
+#header {
+  font-family: Anuphan;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  position: relative;
+}
+
+
+#header form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 10px;
+}
+
+#header .date-picker-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+#header button {
+  border: none;
+  color:black;
+  font-size: 30px;
+  padding: 0 10px;
+}
+
+#prevBtn{
+  margin-left: 20px;
+}
+
+#nextBtn{
+  margin-right: 20px;
+}
+
+#header button:hover {
+  background-color: #e0e0e0;
+}
+
+#header h3 {
+  margin: 10px;
+}
+
+
+table {
+  font-family: Anuphan;
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+th,
+td {
+  text-align: center;
+  border: 1px solid #fff;
+}
+
+th {
+  color: blue;
+}
+
+td {
+  cursor: pointer;
+}
+
+td.selected {
+  background-color: #336eda !important;
+  border-top: #336eda !important;
+  border-bottom: 1px solid #336eda !important;
+
+}
+
+#bookingForm {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#bookBtn {
+  font-size: 16px;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+#bookBtn:hover {
+  background-color: #45a049;
+}
+
+.slot{
+  width: 10%;
+}
+
+.list i{
+  margin-left:10%;
+}
+
+.non-slot{
+  width:30%;
+}
+
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be customized */
+}
+
+.modal-buttons {
+  text-align: right;
+  margin-top: 10px;
+}
+
+/* Style for the textarea */
+.reason {
+  display: block;
+  width: 30%;
+  padding: 5px;
+  margin-left: 35% !important;
+  margin-bottom: 20px !important;
+}
+
+.logo{
+  height: 100%;
+}
+
+.logo img {
+  max-height: 100%;
+}
+
+.myDate{
+  width: 200px;
+  font-size: 16px;
+}
+
+
+
+
